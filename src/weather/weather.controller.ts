@@ -27,7 +27,19 @@ export class WeatherController {
             sunset: weatherData.sunset,
             coordinates: weatherData.coordinates,
             icon: weatherData.icon,
+            timestamp: weatherData.timestamp,
         };
     }
+
+    // Endpoint to get weather history (past data)
+    @Get('history')
+    getWeatherHistory() {
+        const history = this.weatherService.getWeatherHistory();
+        if (history.length === 0) {
+            return {
+                message: 'No weather data history found.',
+            };
+        }
+        return history;
+    }
 }
-    
