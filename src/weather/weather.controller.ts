@@ -5,7 +5,7 @@ import { WeatherService } from './weather.service';
 export class WeatherController {
     constructor(private readonly weatherService: WeatherService) { }
 
-    // Endpoint to get weather by city
+    // Endpoint to get weather by city with detailed information
     @Get('city')
     async getWeatherByCity(@Query('city') city: string) {
         if (!city) {
@@ -16,11 +16,17 @@ export class WeatherController {
 
         const weatherData = await this.weatherService.getWeatherByCity(city);
         return {
-            city: weatherData.name,
-            temperature: weatherData.main.temp,
-            weather: weatherData.weather[0].description,
-            humidity: weatherData.main.humidity,
-            windSpeed: weatherData.wind.speed,
+            city: weatherData.city,
+            temperature: weatherData.temperature,
+            description: weatherData.description,
+            humidity: weatherData.humidity,
+            pressure: weatherData.pressure,
+            windSpeed: weatherData.windSpeed,
+            windDirection: weatherData.windDirection,
+            sunrise: weatherData.sunrise,
+            sunset: weatherData.sunset,
+            coordinates: weatherData.coordinates,
+            icon: weatherData.icon,
         };
     }
 }
